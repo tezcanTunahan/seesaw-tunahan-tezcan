@@ -1,7 +1,6 @@
+import "/preview.js";
 const seesawClickable = document.getElementById("seesawClickable");
-const previewObject = document.querySelector(".preview-object");
-const previewLine = document.querySelector(".preview-line");
-
+const seasawPlank = document.getElementById("seasaw-plank");
 /**
  * @typedef {Object} Weight
  * @property {string} id
@@ -13,38 +12,50 @@ const previewLine = document.querySelector(".preview-line");
 /** @type {Weight[]} */
 const weights = [];
 
-seesawClickable.addEventListener("mousemove", (event) => {
-  const rect = seesawClickable.getBoundingClientRect();
-  const width = rect.width;
-  const middle = width / 2;
-
-  const x = event.clientX - rect.left;
-  previewObject.style.left = `${x}px`;
-  previewLine.style.left = `${x}px`;
-  if (x > middle) {
-    // right
-    const distance = x - middle;
-  } else if (x < middle) {
-    // left
-    const distance = middle - x;
-  } else {
-    console.log(middle - x, "mid");
-  }
-});
-
 seesawClickable.addEventListener("click", (event) => {
   const rect = seesawClickable.getBoundingClientRect();
+  const middle = rect.width / 2;
   const x = event.clientX - rect.left;
+  let position = 0;
 
-  console.log(x, "x-mouseclick:");
+  if (x > middle) {
+    position = x - middle;
+  } else if (x < middle) {
+    position = x - middle;
+  }
+
+  const element = createWeightElement(x);
+  seasawPlank.appendChild(element);
+
+  requestAnimationFrame(() => {
+    element.style.top = "0px";
+  });
+  /** @type {Weight} */
+  const weight = {
+    id: crypto.randomUUID(),
+    mass: getRandomMass(),
+    position,
+    element,
+  };
+
+  weights.push(weight);
 });
 
-seesawClickable.addEventListener("mouseleave", () => {
-  previewObject.style.display = "none";
-  previewLine.style.display = "none";
-});
+function createWeightElement(x) {
+  const el = document.createElement("div");
+  // el.className = "weight";
+  el.style.position = "absolute";
+  el.style.top = `-200px`;
 
-seesawClickable.addEventListener("mouseenter", () => {
-  previewObject.style.display = "block";
-  previewLine.style.display = "block";
-});
+  el.style.left = `${x}px`;
+  el.style.width = `${40}px`;
+  el.style.height = `${40}px`;
+  el.style.backgroundColor = `red`;
+  el.style.transition = "top 0.6s ease-in";
+
+  return el;
+}
+
+function getRandomMass() {
+  return Math.floor(Math.random() * 10) + 1;
+}
