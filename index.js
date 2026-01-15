@@ -23,8 +23,8 @@ seesawClickable.addEventListener("click", (event) => {
   } else if (x < middle) {
     position = x - middle;
   }
-
-  const element = createWeightElement(x);
+  const mass = getRandomMass();
+  const element = createWeightElement(x, mass);
   seasawPlank.appendChild(element);
 
   requestAnimationFrame(() => {
@@ -33,7 +33,7 @@ seesawClickable.addEventListener("click", (event) => {
   /** @type {Weight} */
   const weight = {
     id: crypto.randomUUID(),
-    mass: getRandomMass(),
+    mass,
     position,
     element,
   };
@@ -41,21 +41,26 @@ seesawClickable.addEventListener("click", (event) => {
   weights.push(weight);
 });
 
-function createWeightElement(x) {
+function createWeightElement(x, mass) {
   const el = document.createElement("div");
-  // el.className = "weight";
-  el.style.position = "absolute";
-  el.style.top = `-200px`;
-
+  const size = 30 + mass * 5;
+  el.className = "weight";
   el.style.left = `${x}px`;
-  el.style.width = `${40}px`;
-  el.style.height = `${40}px`;
-  el.style.backgroundColor = `red`;
-  el.style.transition = "top 0.6s ease-in";
-
+  el.textContent = `${mass}kg`;
+  el.style.width = `${size}px`;
+  el.style.height = `${size}px`;
+  el.style.backgroundColor = getRandomColor();
   return el;
 }
 
 function getRandomMass() {
   return Math.floor(Math.random() * 10) + 1;
+}
+
+function getRandomColor() {
+  const hue = Math.floor(Math.random() * 360);
+  const saturation = 70;
+  const lightness = 60;
+
+  return `hsl(${hue}, ${saturation}%, ${lightness}%)`;
 }
