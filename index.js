@@ -1,8 +1,3 @@
-import "/preview.js";
-import { getRandomColor, getRandomMass } from "/utils.js";
-
-const seesawClickable = document.getElementById("seesawClickable");
-const seasawPlank = document.getElementById("seasaw-plank");
 /**
  * @typedef {Object} Weight
  * @property {string} id
@@ -11,24 +6,44 @@ const seasawPlank = document.getElementById("seasaw-plank");
  * @property {HTMLElement} element
  */
 
+import "/preview.js";
+import { getRandomColor, getRandomMass } from "/utils.js";
+
+const seesawClickable = document.getElementById("seesawClickable");
+const seesawPlank = document.getElementById("seesaw-plank");
+
 /** @type {Weight[]} */
 const weights = [];
 
 seesawClickable.addEventListener("click", (event) => {
   const rect = seesawClickable.getBoundingClientRect();
-  const middle = rect.width / 2;
   const x = event.clientX - rect.left;
-  let position = 0;
-  if (x > middle) {
-    position = x - middle;
-  } else if (x < middle) {
-    position = x - middle;
-  }
+  const position = x - rect.width / 2;
+
   const mass = getRandomMass();
   const element = createWeightElement(x, mass);
   const id = crypto.randomUUID();
   weights.push({ id, mass, position, element });
+  calculateTotalTorque();
 });
+
+function calculateTotalTorque() {
+  const totalTorque = weights.reduce((acc, w) => {
+    return acc + w.mass * w.position;
+  }, 0);
+  applyRotation(totalTorque);
+  return totalTorque;
+}
+
+function applyRotation(torque) {
+  const sensitivity = 0.05;
+  let angle = torque * sensitivity;
+  const maxAngle = 30;
+  if (angle > maxAngle) angle = maxAngle;
+  if (angle < -maxAngle) angle = -maxAngle;
+
+  seesawPlank.style.transform = `translate(-50%, -50%) rotate(${angle}deg)`;
+}
 
 function createWeightElement(x, mass) {
   const size = 30 + mass * 5;
@@ -41,9 +56,10 @@ function createWeightElement(x, mass) {
   el.style.height = `${size}px`;
   el.style.backgroundColor = getRandomColor();
 
-  seasawPlank.appendChild(el);
+  seesawPlank.appendChild(el);
   requestAnimationFrame(() => {
     el.style.top = "0px";
   });
+
   return el;
 }
