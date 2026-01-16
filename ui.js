@@ -6,4 +6,5 @@ export const UI = {
   leftWeight: document.getElementById("left-weight"),
   rightWeight: document.getElementById("right-weight"),
   nextWeight: document.getElementById("next-weight"),
+  log: document.getElementById("log"),
 };

@@ -4,7 +4,7 @@ import { CONSTANTS } from "./constants.js";
 import Weight from "./Weight.js";
 
 export default class Seesaw {
-  #weights = [];
+  weights = [];
   #containerElement;
   #plankElement;
   nextWeight;
@@ -21,7 +21,7 @@ export default class Seesaw {
       offsetFromCenter,
       relativeX
     );
-    this.#weights.push(weight);
+    this.weights.push(weight);
     this.#containerElement.appendChild(weight.element);
     this.#render();
 
@@ -39,34 +39,34 @@ export default class Seesaw {
     requestAnimationFrame(() => {
       this.#plankElement.style.transform = `translate(-50%, -50%) rotate(${this.angle}deg)`;
       const angleRad = (this.angle * Math.PI) / 180;
-      this.#weights.forEach((weight) => weight.updatePosition(angleRad));
+      this.weights.forEach((weight) => weight.updatePosition(angleRad));
     });
   }
 
   reset() {
-    this.#weights.forEach((weight) => {
+    this.weights.forEach((weight) => {
       weight.element.remove();
     });
-    this.#weights = [];
+    this.weights = [];
     this.#render();
   }
 
   get leftWeight() {
-    return this.#weights.reduce(
+    return this.weights.reduce(
       (acc, w) => (w.offsetFromCenter < 0 ? acc + w.mass : acc),
       0
     );
   }
 
   get rightWeight() {
-    return this.#weights.reduce(
+    return this.weights.reduce(
       (acc, w) => (w.offsetFromCenter > 0 ? acc + w.mass : acc),
       0
     );
   }
 
   get torque() {
-    return this.#weights.reduce(
+    return this.weights.reduce(
       (acc, w) => acc + w.mass * w.offsetFromCenter,
       0
     );
