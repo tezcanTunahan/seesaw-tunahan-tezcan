@@ -24,15 +24,14 @@ seesawClickable.addEventListener("click", (event) => {
   const element = createWeightElement(x, mass);
   const id = crypto.randomUUID();
   weights.push({ id, mass, position, element });
-  calculateTotalTorque();
+  const torque = calculateTotalTorque();
+  applyRotation(torque);
 });
 
 function calculateTotalTorque() {
-  const totalTorque = weights.reduce((acc, w) => {
+  return weights.reduce((acc, w) => {
     return acc + w.mass * w.position;
   }, 0);
-  applyRotation(totalTorque);
-  return totalTorque;
 }
 
 function applyRotation(torque) {
@@ -41,7 +40,6 @@ function applyRotation(torque) {
   const maxAngle = 30;
   if (angle > maxAngle) angle = maxAngle;
   if (angle < -maxAngle) angle = -maxAngle;
-
   seesawPlank.style.transform = `translate(-50%, -50%) rotate(${angle}deg)`;
 }
 
@@ -54,6 +52,7 @@ function createWeightElement(x, mass) {
   el.textContent = `${mass}kg`;
   el.style.width = `${size}px`;
   el.style.height = `${size}px`;
+
   el.style.backgroundColor = getRandomColor();
 
   seesawPlank.appendChild(el);
