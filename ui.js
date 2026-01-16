@@ -1,4 +1,4 @@
 export const UI = {
   seesawClickable: document.getElementById("seesaw-clickable"),
-  seesarPlank: document.getElementById("seesaw-plank"),
+  seesawPlank: document.getElementById("seesaw-plank"),
 };
