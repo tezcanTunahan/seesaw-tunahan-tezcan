@@ -103,7 +103,7 @@ button {
   background: #5d4e37;
   border: 1.5px solid #4a3f2f;
   transform: translateX(-50%) translateY(-50%);
-  transition: transform 0.5s;
+  transition: transform 0.3s;
 }
 
 .preview-object {
@@ -130,7 +130,7 @@ button {
   font-size: 0.8rem;
   transform: translateX(-50%) translateY(-50%);
   border-radius: 50%;
-  transition: all 0.3s linear;
+  transition: all 0.2s linear;
   pointer-events: none;
 }
 .preview-line {

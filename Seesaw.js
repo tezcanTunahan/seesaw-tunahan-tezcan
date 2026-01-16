@@ -7,7 +7,7 @@ export default class Seesaw {
   #weights = [];
   #containerElement;
   #plankElement;
-  #weightData;
+  nextWeight;
   constructor(containerElement, plankElement) {
     this.#containerElement = containerElement;
     this.#plankElement = plankElement;
@@ -16,8 +16,8 @@ export default class Seesaw {
 
   addWeightOnClick(offsetFromCenter, relativeX) {
     const weight = new Weight(
-      this.#weightData.mass,
-      this.#weightData.bgColor,
+      this.nextWeight.mass,
+      this.nextWeight.bgColor,
       offsetFromCenter,
       relativeX
     );
@@ -29,7 +29,7 @@ export default class Seesaw {
   }
 
   #prepareNextWeight() {
-    this.#weightData = {
+    this.nextWeight = {
       mass: getRandomInt(),
       bgColor: getRandomColor(),
     };
@@ -49,6 +49,20 @@ export default class Seesaw {
     });
     this.#weights = [];
     this.#render();
+  }
+
+  get leftWeight() {
+    return this.#weights.reduce(
+      (acc, w) => (w.offsetFromCenter < 0 ? acc + w.mass : acc),
+      0
+    );
+  }
+
+  get rightWeight() {
+    return this.#weights.reduce(
+      (acc, w) => (w.offsetFromCenter > 0 ? acc + w.mass : acc),
+      0
+    );
   }
 
   get torque() {

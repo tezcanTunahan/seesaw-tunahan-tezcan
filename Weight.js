@@ -1,4 +1,4 @@
-import { CONSTANTS } from "/constants.js";
+import { CONSTANTS } from "./constants.js";
 export default class Weight {
   mass;
   bgColor;
