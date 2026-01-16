@@ -1,7 +1,8 @@
 import "/preview.js";
-import { getRandomColor, getRandomMass } from "/utils.js";
-const seesawClickable = document.getElementById("seesaw-clickable");
-const seesawPlank = document.getElementById("seesaw-plank");
+import { CONSTANTS } from "./constants.js";
+import { UI } from "./ui.js";
+import { getRandomColor, getRandomInt } from "/utils.js";
+
 /**
  * @typedef {Object} Weight
  * @property {string} id
@@ -13,20 +14,19 @@ const seesawPlank = document.getElementById("seesaw-plank");
 /** @type {Weight[]} */
 const weights = [];
 
-seesawClickable.addEventListener("mousedown", (event) => {
-  if (event.target !== seesawClickable) return;
-
-  const rect = seesawClickable.getBoundingClientRect();
+UI.seesawClickable.addEventListener("mousedown", (event) => {
+  if (event.target !== UI.seesawClickable) return;
+  const rect = UI.seesawClickable.getBoundingClientRect();
   const relativeX = event.clientX - rect.left;
 
-  const id = crypto.randomUUID();
-  const mass = getRandomMass();
   const position = relativeX - rect.width / 2;
-
+  const id = crypto.randomUUID();
+  const mass = getRandomInt();
   const element = createWeightElement(relativeX, mass);
   weights.push({ id, mass, position, element });
 
   const torque = calculateTotalTorque();
+
   applyRotation(torque);
 });
 
@@ -37,13 +37,13 @@ function calculateTotalTorque() {
 }
 
 function applyRotation(torque) {
-  const sensitivity = 0.05;
+  const sensitivity = CONSTANTS.SENSITIVITY;
   let angle = torque * sensitivity;
-  const maxAngle = 30;
-  if (angle > maxAngle) angle = maxAngle;
-  if (angle < -maxAngle) angle = -maxAngle;
 
-  seesawPlank.style.transform = `translate(-50%, -50%) rotate(${angle}deg)`;
+  if (angle > CONSTANTS.MAX_ANGLE) angle = CONSTANTS.MAX_ANGLE;
+  if (angle < -CONSTANTS.MAX_ANGLE) angle = -CONSTANTS.MAX_ANGLE;
+
+  UI.seesarPlank.style.transform = `translate(-50%, -50%) rotate(${angle}deg)`;
 
   const angleRad = (angle * Math.PI) / 180;
   requestAnimationFrame(() => {
@@ -57,21 +57,18 @@ function applyRotation(torque) {
   });
 }
 
-function createWeightElement(x, mass) {
-  const size = 30 + mass * 3;
+function createWeightElement(position, mass) {
+  const size =
+    CONSTANTS.WEIGHT_SIZE_BASE + mass * CONSTANTS.WEIGHT_SIZE_MULTIPLIER;
   const el = document.createElement("div");
 
   el.className = "weight";
-  el.style.left = `${x}px`;
+  el.style.left = `${position}px`;
   el.textContent = `${mass}kg`;
   el.style.width = `${size}px`;
   el.style.height = `${size}px`;
   el.style.backgroundColor = getRandomColor();
 
-  seesawClickable.appendChild(el);
-  requestAnimationFrame(() => {
-    el.style.top = "50%";
-  });
-
+  UI.seesawClickable.appendChild(el);
   return el;
 }
