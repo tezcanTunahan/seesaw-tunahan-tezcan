@@ -1,16 +1,8 @@
-/**
- * @typedef {Object} Weight
- * @property {string} id
- * @property {number} mass
- * @property {number} position
- * @property {HTMLElement} element
- */
 import { getRandomColor, getRandomInt } from "/utils.js";
 import { CONSTANTS } from "./constants.js";
 import Weight from "./Weight.js";
 
 export default class Seesaw {
-  /** @type {Weight[]} */
   #weights = [];
   #mass;
   #containerElement;
