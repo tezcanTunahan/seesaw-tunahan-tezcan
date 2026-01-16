@@ -1,3 +1,7 @@
+import "/preview.js";
+import { getRandomColor, getRandomMass } from "/utils.js";
+const seesawClickable = document.getElementById("seesaw-clickable");
+const seesawPlank = document.getElementById("seesaw-plank");
 /**
  * @typedef {Object} Weight
  * @property {string} id
@@ -6,24 +10,21 @@
  * @property {HTMLElement} element
  */
 
-import "/preview.js";
-import { getRandomColor, getRandomMass } from "/utils.js";
-
-const seesawClickable = document.getElementById("seesawClickable");
-const seesawPlank = document.getElementById("seesaw-plank");
-
 /** @type {Weight[]} */
 const weights = [];
 
-seesawClickable.addEventListener("click", (event) => {
+seesawClickable.addEventListener("mousedown", (event) => {
+  event.preventDefault();
   const rect = seesawClickable.getBoundingClientRect();
-  const x = event.clientX - rect.left;
-  const position = x - rect.width / 2;
+  const relativeX = event.clientX - rect.left;
 
-  const mass = getRandomMass();
-  const element = createWeightElement(x, mass);
   const id = crypto.randomUUID();
+  const mass = getRandomMass();
+  const position = relativeX - rect.width / 2;
+
+  const element = createWeightElement(relativeX, mass);
   weights.push({ id, mass, position, element });
+
   const torque = calculateTotalTorque();
   applyRotation(torque);
 });
@@ -40,15 +41,15 @@ function applyRotation(torque) {
   const maxAngle = 30;
   if (angle > maxAngle) angle = maxAngle;
   if (angle < -maxAngle) angle = -maxAngle;
+
   seesawPlank.style.transform = `translate(-50%, -50%) rotate(${angle}deg)`;
 
   const angleRad = (angle * Math.PI) / 180;
-  weights.map((weight) => {
-    const distance = weight.position;
-    const offsetX = distance * Math.cos(angleRad);
-    const offsetY = distance * Math.sin(angleRad);
-
-    requestAnimationFrame(() => {
+  requestAnimationFrame(() => {
+    weights.map((weight) => {
+      const distance = weight.position;
+      const offsetX = distance * Math.cos(angleRad);
+      const offsetY = distance * Math.sin(angleRad);
       weight.element.style.top = `calc(50% + ${offsetY}px)`;
       weight.element.style.left = `calc(50% + ${offsetX}px)`;
     });
@@ -56,7 +57,7 @@ function applyRotation(torque) {
 }
 
 function createWeightElement(x, mass) {
-  const size = 25 + mass * 5;
+  const size = 30 + mass * 3;
   const el = document.createElement("div");
 
   el.className = "weight";

@@ -1,3 +1,4 @@
+const seesawClickable = document.getElementById("seesaw-clickable");
 const previewObject = document.querySelector(".preview-object");
 const previewLine = document.querySelector(".preview-line");
 
