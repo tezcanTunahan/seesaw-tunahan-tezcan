@@ -1,39 +1,38 @@
-import { getRandomColor, getRandomInt } from "/utils.js";
+import { getRandomColor } from "/utils.js";
+import { getRandomInt } from "/utils.js";
 import { CONSTANTS } from "./constants.js";
 import Weight from "./Weight.js";
 
 export default class Seesaw {
   #weights = [];
-  #mass;
   #containerElement;
   #plankElement;
+  #weightData;
   constructor(containerElement, plankElement) {
-    this.#mass = getRandomInt();
     this.#containerElement = containerElement;
     this.#plankElement = plankElement;
+    this.#prepareNextWeight();
   }
 
   addWeightOnClick(offsetFromCenter, relativeX) {
-    const weight = new Weight(this.#mass, offsetFromCenter, relativeX);
+    const weight = new Weight(
+      this.#weightData.mass,
+      this.#weightData.bgColor,
+      offsetFromCenter,
+      relativeX
+    );
     this.#weights.push(weight);
     this.#containerElement.appendChild(weight.element);
     this.#render();
-    this.#mass = getRandomInt();
+
+    this.#prepareNextWeight();
   }
 
-  get torque() {
-    return this.#weights.reduce(
-      (acc, w) => acc + w.mass * w.offsetFromCenter,
-      0
-    );
-  }
-
-  get angle() {
-    const rawAngle = this.torque * CONSTANTS.SENSITIVITY;
-    return Math.max(
-      -CONSTANTS.MAX_ANGLE,
-      Math.min(CONSTANTS.MAX_ANGLE, rawAngle)
-    );
+  #prepareNextWeight() {
+    this.#weightData = {
+      mass: getRandomInt(),
+      bgColor: getRandomColor(),
+    };
   }
 
   #render() {
@@ -42,5 +41,19 @@ export default class Seesaw {
       const angleRad = (this.angle * Math.PI) / 180;
       this.#weights.forEach((weight) => weight.updatePosition(angleRad));
     });
+  }
+
+  get torque() {
+    return this.#weights.reduce(
+      (acc, w) => acc + w.mass * w.offsetFromCenter,
+      0
+    );
+  }
+  get angle() {
+    const rawAngle = this.torque * CONSTANTS.SENSITIVITY;
+    return Math.max(
+      -CONSTANTS.MAX_ANGLE,
+      Math.min(CONSTANTS.MAX_ANGLE, rawAngle)
+    );
   }
 }
