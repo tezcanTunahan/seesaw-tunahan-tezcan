@@ -9,6 +9,9 @@ UI.seesawClickable.addEventListener("mousedown", (event) => {
   const rect = UI.seesawClickable.getBoundingClientRect();
   const relativeX = event.clientX - rect.left;
   const offsetFromCenter = relativeX - rect.width / 2;
-
   seesaw.addWeightOnClick(offsetFromCenter, relativeX);
+});
+
+UI.resetBtn.addEventListener("click", (event) => {
+  seesaw.reset();
 });

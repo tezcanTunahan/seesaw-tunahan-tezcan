@@ -43,6 +43,14 @@ export default class Seesaw {
     });
   }
 
+  reset() {
+    this.#weights.forEach((weight) => {
+      weight.element.remove();
+    });
+    this.#weights = [];
+    this.#render();
+  }
+
   get torque() {
     return this.#weights.reduce(
       (acc, w) => acc + w.mass * w.offsetFromCenter,
