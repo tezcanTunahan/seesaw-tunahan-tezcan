@@ -115,16 +115,16 @@ button {
 }
 
 .weight {
+  position: absolute;
   color: white;
   display: flex;
   justify-content: center;
   align-items: center;
   font-weight: 600;
-  position: absolute;
-  top: -200px;
+  top: -10%;
   transform: translateX(-50%) translateY(-50%);
   border-radius: 50%;
-  transition: top 1s ease-in;
+  transition: top 1s linear;
 }
 .preview-line {
   position: absolute;

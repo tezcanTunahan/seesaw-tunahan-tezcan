@@ -41,10 +41,22 @@ function applyRotation(torque) {
   if (angle > maxAngle) angle = maxAngle;
   if (angle < -maxAngle) angle = -maxAngle;
   seesawPlank.style.transform = `translate(-50%, -50%) rotate(${angle}deg)`;
+
+  const angleRad = (angle * Math.PI) / 180;
+  weights.map((weight) => {
+    const distance = weight.position;
+    const offsetX = distance * Math.cos(angleRad);
+    const offsetY = distance * Math.sin(angleRad);
+
+    requestAnimationFrame(() => {
+      weight.element.style.top = `calc(50% + ${offsetY}px)`;
+      weight.element.style.left = `calc(50% + ${offsetX}px)`;
+    });
+  });
 }
 
 function createWeightElement(x, mass) {
-  const size = 30 + mass * 5;
+  const size = 25 + mass * 5;
   const el = document.createElement("div");
 
   el.className = "weight";
@@ -52,12 +64,11 @@ function createWeightElement(x, mass) {
   el.textContent = `${mass}kg`;
   el.style.width = `${size}px`;
   el.style.height = `${size}px`;
-
   el.style.backgroundColor = getRandomColor();
 
-  seesawPlank.appendChild(el);
+  seesawClickable.appendChild(el);
   requestAnimationFrame(() => {
-    el.style.top = "0px";
+    el.style.top = "50%";
   });
 
   return el;
