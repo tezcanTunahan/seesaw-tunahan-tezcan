@@ -1,9 +1,10 @@
-const seesawClickable = document.getElementById("seesaw-clickable");
+import { UI } from "/ui.js";
+
 const previewObject = document.querySelector(".preview-object");
 const previewLine = document.querySelector(".preview-line");
 
-seesawClickable.addEventListener("mousemove", (event) => {
-  const rect = seesawClickable.getBoundingClientRect();
+UI.seesawClickable.addEventListener("mousemove", (event) => {
+  const rect = UI.seesawClickable.getBoundingClientRect();
   const x = event.clientX - rect.left;
 
   previewObject.style.display = "block";
@@ -13,7 +14,7 @@ seesawClickable.addEventListener("mousemove", (event) => {
   previewLine.style.left = `${x}px`;
 });
 
-seesawClickable.addEventListener("mouseleave", () => {
+UI.seesawClickable.addEventListener("mouseleave", () => {
   previewObject.style.display = "none";
   previewLine.style.display = "none";
 });
