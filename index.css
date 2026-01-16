@@ -67,6 +67,7 @@ button {
 }
 
 .seesaw-clickable {
+  z-index: 999;
   position: relative;
   margin: 0 auto;
   width: 400px;
@@ -90,9 +91,11 @@ button {
   border-left: 15px solid transparent;
   border-right: 15px solid transparent;
   border-bottom: 30px solid #34495e;
+  pointer-events: none;
 }
 .seesaw-plank {
   position: absolute;
+  pointer-events: none;
   left: 50%;
   top: 50%;
   width: 400px;
@@ -113,6 +116,7 @@ button {
   height: 42px;
   background-color: skyblue;
   border-radius: 50%;
+  pointer-events: none;
 }
 
 .weight {
@@ -127,8 +131,10 @@ button {
   transform: translateX(-50%) translateY(-50%);
   border-radius: 50%;
   transition: all 0.3s linear;
+  pointer-events: none;
 }
 .preview-line {
+  pointer-events: none;
   position: absolute;
   left: 50%;
   top: 50%;

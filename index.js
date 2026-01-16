@@ -14,7 +14,8 @@ const seesawPlank = document.getElementById("seesaw-plank");
 const weights = [];
 
 seesawClickable.addEventListener("mousedown", (event) => {
-  event.preventDefault();
+  if (event.target !== seesawClickable) return;
+
   const rect = seesawClickable.getBoundingClientRect();
   const relativeX = event.clientX - rect.left;
 
