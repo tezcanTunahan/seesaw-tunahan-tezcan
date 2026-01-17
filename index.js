@@ -6,19 +6,6 @@ const seesaw = new Seesaw(UI.seesawClickable, UI.seesawPlank);
 updateStats();
 updateLogEntry();
 
-UI.seesawClickable.addEventListener("mousedown", (event) => {
-  if (event.target !== UI.seesawClickable) return;
-  seesaw.addWeight(event.clientX);
-  updateStats();
-  updateLogEntry();
-});
-
-UI.resetBtn.addEventListener("click", (event) => {
-  seesaw.reset();
-  updateStats();
-  UI.log.innerHTML = "";
-});
-
 UI.seesawClickable.addEventListener("mousemove", (event) => {
   const rect = UI.seesawClickable.getBoundingClientRect();
   const x = event.clientX - rect.left;
@@ -40,6 +27,19 @@ UI.seesawClickable.addEventListener("mousemove", (event) => {
 UI.seesawClickable.addEventListener("mouseleave", () => {
   UI.previewObject.style.display = "none";
   UI.previewLine.style.display = "none";
+});
+
+UI.seesawClickable.addEventListener("mousedown", (event) => {
+  if (event.target !== UI.seesawClickable) return;
+  seesaw.addWeight(event.clientX);
+  updateStats();
+  updateLogEntry();
+});
+
+UI.resetBtn.addEventListener("click", (event) => {
+  seesaw.reset();
+  updateStats();
+  UI.log.innerHTML = "";
 });
 
 function updateLogEntry() {
