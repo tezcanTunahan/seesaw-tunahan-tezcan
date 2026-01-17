@@ -26,5 +26,7 @@ However, I did use AI as a tool for quick information—essentially like a faste
 
 ## How to Run Locally
 git clone https://github.com/tezcanTunahan/seesaw-tunahan-tezcan.git
+
 cd seasaw-tunahan-tezcan
+
 Simply open `index.html` in your browser. or you can use live server.
