@@ -1,7 +1,7 @@
 import { CONSTANTS } from "./constants.js";
 
 const dropSound = new Audio(CONSTANTS.dropSoundUrl);
-dropSound.volume = 0.2;
+dropSound.volume = 0.4;
 
 export const playDropSound = () => {
   dropSound.currentTime = 0;

@@ -108,7 +108,7 @@ button {
   display: none;
   position: absolute;
   left: 50%;
-  top: 40%;
+  top: 35%;
   transform: translateX(-50%) translateY(-50%);
   width: 42px;
   height: 42px;
@@ -135,7 +135,7 @@ button {
   pointer-events: none;
   position: absolute;
   left: 50%;
-  top: 50%;
+  top: 45%;
   transform: translateX(-50%) translateY(-50%);
 
   width: 2px;

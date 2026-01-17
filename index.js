@@ -25,7 +25,7 @@ function updateLogEntry() {
     const el = document.createElement("div");
     el.className = "log-entry";
     const side = w.offsetFromCenter < 0 ? "left" : "right";
-    el.textContent = `📦 ${w.mass.toFixed(1)}kg dropped on ${side} side at ${w.offsetFromCenter}px from center`;
+    el.textContent = `📦 ${w.mass.toFixed(1)}kg dropped on ${side} side at ${Math.ceil(Math.abs(w.offsetFromCenter))}px from center`;
     UI.log.prepend(el);
   });
 }
