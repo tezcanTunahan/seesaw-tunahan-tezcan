@@ -11,13 +11,13 @@ export default class Seesaw {
   constructor(containerElement, plankElement) {
     this.#containerElement = containerElement;
     this.#plankElement = plankElement;
-    this.load();
+    this.#load();
     this.#prepareNextWeight();
   }
 
   addWeight(clientX) {
     playDropSound();
-    const { offsetFromCenter, relativeX } = this.calculatePosition(clientX);
+    const { offsetFromCenter, relativeX } = this.#calculatePosition(clientX);
     const weight = new Weight(
       this.nextWeight.mass,
       this.nextWeight.bgColor,
@@ -29,10 +29,10 @@ export default class Seesaw {
 
     this.#render();
     this.#prepareNextWeight();
-    this.save();
+    this.#save();
   }
 
-  calculatePosition(clientX) {
+  #calculatePosition(clientX) {
     const rect = this.#containerElement.getBoundingClientRect();
     const relativeX = clientX - rect.left;
     const offsetFromCenter = relativeX - rect.width / 2;
@@ -63,10 +63,10 @@ export default class Seesaw {
     this.#render();
   }
 
-  save() {
+  #save() {
     localStorage.setItem("seesaw_weights", JSON.stringify(this.weights));
   }
-  load() {
+  #load() {
     const savedData = localStorage.getItem("seesaw_weights");
     if (!savedData) return;
     try {
