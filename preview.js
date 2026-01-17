@@ -1,4 +1,4 @@
-import { UI } from "/ui.js";
+import { UI } from "./ui.js";
 
 const previewObject = document.querySelector(".preview-object");
 const previewLine = document.querySelector(".preview-line");

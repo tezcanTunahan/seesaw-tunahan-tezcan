@@ -1,5 +1,4 @@
-import { getRandomColor } from "/utils.js";
-import { getRandomInt } from "/utils.js";
+import { getRandomColor, getRandomInt } from "./utils.js";
 import { CONSTANTS } from "./constants.js";
 import Weight from "./Weight.js";
 

@@ -1,4 +1,4 @@
-import "/preview.js";
+import "./preview.js";
 import { UI } from "./ui.js";
 import Seesaw from "./Seesaw.js";
 
