@@ -1,4 +1,5 @@
-import { getRandomColor, getRandomInt, playDropSound } from "./utils.js";
+import { getRandomColor, getRandomInt } from "./utils.js";
+import { playDropSound } from "./sound.js";
 import { CONSTANTS } from "./constants.js";
 import Weight from "./Weight.js";
 
