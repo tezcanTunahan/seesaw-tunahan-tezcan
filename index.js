@@ -10,13 +10,9 @@ UI.seesawClickable.addEventListener("mousedown", (event) => {
   const rect = UI.seesawClickable.getBoundingClientRect();
   const relativeX = event.clientX - rect.left;
   const offsetFromCenter = relativeX - rect.width / 2;
+  createLogElement(offsetFromCenter, seesaw.nextWeight.mass);
   seesaw.addWeightOnClick(offsetFromCenter, relativeX);
   updateStats();
-  createLogElement(
-    seesaw.nextWeight.bgColor,
-    offsetFromCenter,
-    seesaw.nextWeight.mass
-  );
 });
 
 UI.resetBtn.addEventListener("click", (event) => {
@@ -32,25 +28,12 @@ function updateStats() {
   UI.nextWeight.textContent = `${seesaw.nextWeight.mass.toFixed(1)} kg`;
 }
 
-function createLogElement(bgColor, offsetFromCenter, mass) {
+function createLogElement(offsetFromCenter, mass) {
   const el = document.createElement("div");
-  el.style.display = "flex";
-  el.style.alignItems = "center";
-  el.style.gap = "10px";
-  el.style.marginBottom = "5px";
-  el.style.padding = "5px";
-  el.style.borderBottom = "1px solid #eee";
-  const colorBox = document.createElement("span");
-  colorBox.style.width = "12px";
-  colorBox.style.height = "12px";
-  colorBox.style.borderRadius = "50%";
-  colorBox.style.display = "inline-block";
-  colorBox.style.backgroundColor = bgColor;
-  const side = offsetFromCenter < 0 ? "Sol" : "Sağ";
+  el.className = "log-entry";
+  const side = offsetFromCenter < 0 ? "Left" : "Right";
   const text = document.createElement("span");
-  text.textContent = `${side}: ${mass.toFixed(1)} kg, ${offsetFromCenter}`;
-
-  el.appendChild(colorBox);
+  text.textContent = `📦 ${mass.toFixed(1)}kg dropped on ${side} side at ${offsetFromCenter}px from center`;
   el.appendChild(text);
   UI.log.prepend(el);
 }

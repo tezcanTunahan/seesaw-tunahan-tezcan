@@ -9,7 +9,6 @@ UI.seesawClickable.addEventListener("mousemove", (event) => {
 
   previewObject.style.display = "block";
   previewLine.style.display = "block";
-
   previewObject.style.left = `${x}px`;
   previewLine.style.left = `${x}px`;
 });
