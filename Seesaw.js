@@ -26,15 +26,10 @@ export default class Seesaw {
     );
     this.weights.push(weight);
     this.#containerElement.appendChild(weight.element);
-    const result = {
-      offsetFromCenter,
-      mass: this.nextWeight.mass,
-      side: offsetFromCenter < 0 ? "Left" : "Right",
-    };
+
     this.#render();
     this.#prepareNextWeight();
     this.save();
-    return result;
   }
 
   calculatePosition(clientX) {

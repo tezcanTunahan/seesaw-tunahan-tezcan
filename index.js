@@ -3,14 +3,14 @@ import { UI } from "./ui.js";
 import Seesaw from "./Seesaw.js";
 
 const seesaw = new Seesaw(UI.seesawClickable, UI.seesawPlank);
-
 updateStats();
+updateLogEntry();
 
 UI.seesawClickable.addEventListener("mousedown", (event) => {
   if (event.target !== UI.seesawClickable) return;
-  const { offsetFromCenter, mass, side } = seesaw.addWeight(event.clientX);
-  addLogEntry(offsetFromCenter, mass, side);
+  seesaw.addWeight(event.clientX);
   updateStats();
+  updateLogEntry();
 });
 
 UI.resetBtn.addEventListener("click", (event) => {
@@ -19,11 +19,15 @@ UI.resetBtn.addEventListener("click", (event) => {
   UI.log.innerHTML = "";
 });
 
-function addLogEntry(offsetFromCenter, mass, side) {
-  const el = document.createElement("div");
-  el.className = "log-entry";
-  el.textContent = `📦 ${mass.toFixed(1)}kg dropped on ${side} side at ${offsetFromCenter}px from center`;
-  UI.log.prepend(el);
+function updateLogEntry() {
+  UI.log.innerHTML = null;
+  seesaw.weights.map((w) => {
+    const el = document.createElement("div");
+    el.className = "log-entry";
+    const side = w.offsetFromCenter < 0 ? "left" : "right";
+    el.textContent = `📦 ${w.mass.toFixed(1)}kg dropped on ${side} side at ${w.offsetFromCenter}px from center`;
+    UI.log.prepend(el);
+  });
 }
 
 function updateStats() {
