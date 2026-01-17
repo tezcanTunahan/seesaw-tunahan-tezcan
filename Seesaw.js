@@ -11,6 +11,7 @@ export default class Seesaw {
   constructor(containerElement, plankElement) {
     this.#containerElement = containerElement;
     this.#plankElement = plankElement;
+    this.load();
     this.#prepareNextWeight();
   }
 
@@ -32,6 +33,7 @@ export default class Seesaw {
     };
     this.#render();
     this.#prepareNextWeight();
+    this.save();
     return result;
   }
 
@@ -61,8 +63,34 @@ export default class Seesaw {
     this.weights.forEach((weight) => {
       weight.element.remove();
     });
+    localStorage.removeItem("seesaw_weights");
     this.weights = [];
     this.#render();
+  }
+
+  save() {
+    localStorage.setItem("seesaw_weights", JSON.stringify(this.weights));
+  }
+  load() {
+    const savedData = localStorage.getItem("seesaw_weights");
+    if (!savedData) return;
+    try {
+      const parsedData = JSON.parse(savedData);
+      this.weights = parsedData.map((data) => {
+        const weightInstance = new Weight(
+          data.mass,
+          data.bgColor,
+          data.offsetFromCenter,
+          data.relativeX,
+        );
+        this.#containerElement.appendChild(weightInstance.element);
+        return weightInstance;
+      });
+      this.#render();
+    } catch (e) {
+      console.error("Yükleme sırasında hata:", e);
+      localStorage.removeItem("seesaw_weights");
+    }
   }
 
   get leftWeight() {
