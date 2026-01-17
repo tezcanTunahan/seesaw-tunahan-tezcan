@@ -1,10 +1,17 @@
 import { UI } from "./ui.js";
-import Seesaw from "./Seesaw.js";
 import { CONSTANTS } from "./constants.js";
+import Seesaw from "./Seesaw.js";
 
 const seesaw = new Seesaw(UI.seesawClickable, UI.seesawPlank);
 updateStats();
 updateLogEntry();
+
+UI.seesawClickable.addEventListener("mousedown", (event) => {
+  if (event.target !== UI.seesawClickable) return;
+  seesaw.addWeight(event.clientX);
+  updateStats();
+  updateLogEntry();
+});
 
 UI.seesawClickable.addEventListener("mousemove", (event) => {
   const rect = UI.seesawClickable.getBoundingClientRect();
@@ -27,13 +34,6 @@ UI.seesawClickable.addEventListener("mousemove", (event) => {
 UI.seesawClickable.addEventListener("mouseleave", () => {
   UI.previewObject.style.display = "none";
   UI.previewLine.style.display = "none";
-});
-
-UI.seesawClickable.addEventListener("mousedown", (event) => {
-  if (event.target !== UI.seesawClickable) return;
-  seesaw.addWeight(event.clientX);
-  updateStats();
-  updateLogEntry();
 });
 
 UI.resetBtn.addEventListener("click", (event) => {
