@@ -1,4 +1,4 @@
-import { getRandomColor, getRandomInt } from "./utils.js";
+import { getRandomColor, getRandomInt, playDropSound } from "./utils.js";
 import { CONSTANTS } from "./constants.js";
 import Weight from "./Weight.js";
 
@@ -14,6 +14,7 @@ export default class Seesaw {
   }
 
   addWeight(clientX) {
+    playDropSound();
     const { offsetFromCenter, relativeX } = this.calculatePosition(clientX);
     const weight = new Weight(
       this.nextWeight.mass,
