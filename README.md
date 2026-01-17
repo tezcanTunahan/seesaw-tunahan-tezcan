@@ -29,4 +29,4 @@ git clone https://github.com/tezcanTunahan/seesaw-tunahan-tezcan.git
 
 cd seesaw-tunahan-tezcan
 
-You can use live server run locally
+You can use live server to run  locally
