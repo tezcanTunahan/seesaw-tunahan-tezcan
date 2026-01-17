@@ -7,11 +7,8 @@ updateStats();
 
 UI.seesawClickable.addEventListener("mousedown", (event) => {
   if (event.target !== UI.seesawClickable) return;
-  const rect = UI.seesawClickable.getBoundingClientRect();
-  const relativeX = event.clientX - rect.left;
-  const offsetFromCenter = relativeX - rect.width / 2;
-  createLogElement(offsetFromCenter, seesaw.nextWeight.mass);
-  seesaw.addWeightOnClick(offsetFromCenter, relativeX);
+  const { offsetFromCenter, mass } = seesaw.addWeightOnClick(event.clientX);
+  createLogElement(offsetFromCenter, mass);
   updateStats();
 });
 
@@ -32,8 +29,6 @@ function createLogElement(offsetFromCenter, mass) {
   const el = document.createElement("div");
   el.className = "log-entry";
   const side = offsetFromCenter < 0 ? "Left" : "Right";
-  const text = document.createElement("span");
-  text.textContent = `📦 ${mass.toFixed(1)}kg dropped on ${side} side at ${offsetFromCenter}px from center`;
-  el.appendChild(text);
+  el.textContent = `📦 ${mass.toFixed(1)}kg dropped on ${side} side at ${offsetFromCenter}px from center`;
   UI.log.prepend(el);
 }

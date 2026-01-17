@@ -14,18 +14,30 @@ export default class Seesaw {
     this.#prepareNextWeight();
   }
 
-  addWeightOnClick(offsetFromCenter, relativeX) {
+  addWeightOnClick(clientX) {
+    const { offsetFromCenter, relativeX } = this.calculatePosition(clientX);
     const weight = new Weight(
       this.nextWeight.mass,
       this.nextWeight.bgColor,
       offsetFromCenter,
-      relativeX
+      relativeX,
     );
     this.weights.push(weight);
     this.#containerElement.appendChild(weight.element);
+    const result = {
+      offsetFromCenter,
+      mass: this.nextWeight.mass,
+    };
     this.#render();
-
     this.#prepareNextWeight();
+    return result;
+  }
+
+  calculatePosition(clientX) {
+    const rect = this.#containerElement.getBoundingClientRect();
+    const relativeX = clientX - rect.left;
+    const offsetFromCenter = relativeX - rect.width / 2;
+    return { relativeX, offsetFromCenter };
   }
 
   #prepareNextWeight() {
@@ -54,28 +66,29 @@ export default class Seesaw {
   get leftWeight() {
     return this.weights.reduce(
       (acc, w) => (w.offsetFromCenter < 0 ? acc + w.mass : acc),
-      0
+      0,
     );
   }
 
   get rightWeight() {
     return this.weights.reduce(
       (acc, w) => (w.offsetFromCenter > 0 ? acc + w.mass : acc),
-      0
+      0,
     );
   }
 
   get torque() {
     return this.weights.reduce(
       (acc, w) => acc + w.mass * w.offsetFromCenter,
-      0
+      0,
     );
   }
+
   get angle() {
     const rawAngle = this.torque * CONSTANTS.SENSITIVITY;
     return Math.max(
       -CONSTANTS.MAX_ANGLE,
-      Math.min(CONSTANTS.MAX_ANGLE, rawAngle)
+      Math.min(CONSTANTS.MAX_ANGLE, rawAngle),
     );
   }
 }
