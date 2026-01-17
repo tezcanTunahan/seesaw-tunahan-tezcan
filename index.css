@@ -67,14 +67,12 @@ button {
 }
 
 .seesaw-clickable {
-  z-index: 999;
   position: relative;
   margin: 0 auto;
   width: 400px;
-  max-width: 400px;
   height: 90%;
   cursor: pointer;
-  border: 2px solid red;
+  border: red solid 2px;
 }
 
 .ground {

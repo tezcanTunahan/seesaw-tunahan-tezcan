@@ -13,7 +13,7 @@ export default class Seesaw {
     this.#prepareNextWeight();
   }
 
-  addWeightOnClick(clientX) {
+  addWeight(clientX) {
     const { offsetFromCenter, relativeX } = this.calculatePosition(clientX);
     const weight = new Weight(
       this.nextWeight.mass,
@@ -26,6 +26,7 @@ export default class Seesaw {
     const result = {
       offsetFromCenter,
       mass: this.nextWeight.mass,
+      side: offsetFromCenter < 0 ? "Left" : "Right",
     };
     this.#render();
     this.#prepareNextWeight();
