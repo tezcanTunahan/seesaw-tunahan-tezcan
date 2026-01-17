@@ -3,63 +3,68 @@
 *::after {
   box-sizing: border-box;
 }
+
 body {
   font-family: system-ui, sans-serif;
   background: #f5f7fa;
+  font-size: 15px;
 }
+
 button {
   background: #2c3e50;
   color: white;
   border: none;
-  padding: 12px 28px;
-  font-size: 0.95em;
-  border-radius: 6px;
+  padding: 10px 24px;
+  font-size: 0.9em;
+  border-radius: 5px;
   cursor: pointer;
 }
 
 .container {
-  max-width: 900px;
-  padding: 30px 0;
+  max-width: 810px;
+  padding: 25px 0;
   margin: 0 auto;
   background: #ffffff;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  border-radius: 7px;
+  box-shadow: 0 2px 7px rgba(0, 0, 0, 0.08);
   border: 1px solid #e1e8ed;
 }
 
 .stats {
   display: flex;
   justify-content: space-around;
-  margin-bottom: 24px;
+  margin-bottom: 20px;
   flex-wrap: wrap;
 }
 
 .stat-box {
   background: #f8f9fa;
-  padding: 16px 24px;
+  padding: 14px 20px;
   border-radius: 6px;
   text-align: center;
-  min-width: 120px;
+  min-width: 110px;
   border: 1px solid #e9ecef;
 }
+
 .stat-label {
-  font-size: 0.875em;
+  font-size: 0.8em;
   color: #6c757d;
-  margin-bottom: 6px;
+  margin-bottom: 5px;
   font-weight: 500;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.4px;
 }
+
 .stat-value {
-  font-size: 1.5em;
+  font-size: 1.35em;
   font-weight: 600;
   color: #2c3e50;
 }
 
 .seesaw-container {
-  width: 800px;
+  max-width: 720px;
   margin: 0 auto;
-  height: 500px;
+  height: 450px;
   background: #ecf0f1;
   border-radius: 6px;
   border: 1px solid #e1e8ed;
@@ -69,10 +74,10 @@ button {
 .seesaw-clickable {
   position: relative;
   margin: 0 auto;
-  width: 400px;
+  width: 360px;
   height: 90%;
   cursor: pointer;
-  border: red solid 2px;
+  border: rgba(255, 0, 0, 0.3) solid 1.5px;
 }
 
 .ground {
@@ -81,25 +86,27 @@ button {
   background: #95a5a6;
   border-top: 2px solid #7f8c8d;
 }
+
 .pivot {
   position: absolute;
   left: 50%;
   top: 50%;
   transform: translateX(-50%);
-  border-left: 15px solid transparent;
-  border-right: 15px solid transparent;
-  border-bottom: 30px solid #34495e;
+  border-left: 14px solid transparent;
+  border-right: 14px solid transparent;
+  border-bottom: 28px solid #34495e;
   pointer-events: none;
 }
+
 .seesaw-plank {
   position: absolute;
   pointer-events: none;
   left: 50%;
   top: 50%;
-  width: 400px;
-  height: 20px;
+  width: 360px;
+  height: 17px;
   background: #5d4e37;
-  border: 1.5px solid #4a3f2f;
+  border: 1px solid #4a3f2f;
   transform: translateX(-50%) translateY(-50%);
   transition: transform 0.3s;
 }
@@ -110,8 +117,8 @@ button {
   left: 50%;
   top: 35%;
   transform: translateX(-50%) translateY(-50%);
-  width: 42px;
-  height: 42px;
+  width: 38px;
+  height: 38px;
   background-color: skyblue;
   border-radius: 50%;
   pointer-events: none;
@@ -119,7 +126,7 @@ button {
   justify-content: center;
   align-items: center;
   font-weight: 600;
-  font-size: 0.8rem;
+  font-size: 0.75rem;
 }
 
 .weight {
@@ -130,52 +137,52 @@ button {
   justify-content: center;
   align-items: center;
   font-weight: 600;
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   transform: translateX(-50%) translateY(-50%);
   border-radius: 50%;
   transition: all 0.2s linear;
   pointer-events: none;
 }
+
 .preview-line {
   pointer-events: none;
   position: absolute;
   left: 50%;
   top: 45%;
   transform: translateX(-50%) translateY(-50%);
-
-  width: 2px;
-  height: 40px;
+  width: 1.5px;
+  height: 35px;
   background: repeating-linear-gradient(
     to bottom,
     rgba(0, 0, 0, 0.2),
-    rgba(0, 0, 0, 0.2) 4px,
-    transparent 4px,
-    transparent 8px
+    rgba(0, 0, 0, 0.2) 3.5px,
+    transparent 3.5px,
+    transparent 7px
   );
   display: none;
 }
 
 .controls {
-  margin-top: 20px;
+  margin-top: 18px;
   text-align: center;
 }
 
 .log {
-  margin-top: 20px;
-  height: 150px;
+  margin-top: 18px;
+  height: 135px;
   overflow-y: auto;
   background: #f8f9fa;
-  padding: 12px;
+  padding: 11px;
   border-radius: 6px;
-  font-size: 0.875em;
+  font-size: 0.83rem;
   border: 1px solid #e9ecef;
 }
 
 .log-entry {
-  padding: 8px 10px;
-  margin: 4px 0;
+  padding: 7px 9px;
+  margin: 3.5px 0;
   background: #ffffff;
   border-radius: 4px;
-  border-left: 3px solid #3498db;
+  border-left: 2.5px solid #3498db;
   color: #495057;
 }

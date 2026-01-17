@@ -1,6 +1,7 @@
 import { UI } from "./ui.js";
 import Seesaw from "./Seesaw.js";
 import { CONSTANTS } from "./constants.js";
+
 const seesaw = new Seesaw(UI.seesawClickable, UI.seesawPlank);
 updateStats();
 updateLogEntry();
