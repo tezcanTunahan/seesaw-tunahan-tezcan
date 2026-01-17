@@ -83,7 +83,7 @@ export default class Seesaw {
       });
       this.#render();
     } catch (e) {
-      console.error("Yükleme sırasında hata:", e);
+      console.error("seesaw_weights localStorage error:", e);
       localStorage.removeItem("seesaw_weights");
     }
   }
