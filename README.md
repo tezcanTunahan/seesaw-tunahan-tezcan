@@ -23,3 +23,8 @@ I solved this using **trigonometry**. By treating the plank's tilt as a right-an
 I chose **not** to use AI to write the actual code for this project. I find that relying on AI-generated code can sometimes sabotage my own thought process and reduce my control over the logic. 
 
 However, I did use AI as a tool for quick information—essentially like a faster, distraction-free version of Google. It helped me find answers to specific technical questions without the noise of advertisements or irrelevant search results.
+
+## How to Run Locally
+git clone https://github.com/tezcanTunahan/seesaw-tunahan-tezcan.git
+cd seasaw-tunahan-tezcan
+Simply open `index.html` in your browser. or you can use live server.
