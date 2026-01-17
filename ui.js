@@ -7,4 +7,6 @@ export const UI = {
   rightWeight: document.getElementById("right-weight"),
   nextWeight: document.getElementById("next-weight"),
   log: document.getElementById("log"),
+  previewObject: document.getElementById("preview-object"),
+  previewLine: document.getElementById("preview-line"),
 };
